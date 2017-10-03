@@ -9,6 +9,3 @@
 		});
 	</script>
 <?endif?>
-<script>
-	console.log(<?=$arResult['COVER']?>);
-</script>
