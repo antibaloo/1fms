@@ -8,17 +8,17 @@ public static function show () {?>
 			<div class="header_unauth_arrows"></div>
 			<div class="header_unauth_block header_unauth_block1">
 				<div class="header_unauth_block_text">
-					Зарегистрируйся на<br> флэшмоб и сделай<br> пост в соц.сетях
+					Зарегистрируйся на<br> флэшмоб и сделай<br> пост в соц.сетях.
 				</div>
 			</div>
 			<div class="header_unauth_block header_unauth_block2">
 				<div class="header_unauth_block_text">
-					Приди с друзьями в<br> указанное время и<br> получи скидку!
+					Приди с друзьями в<br> указанное время.
 				</div>
 			</div>
 			<div class="header_unauth_block header_unauth_block3">
 				<div class="header_unauth_block_text">
-					Загрузи фото, сделай<br> пост в соц.сетях и<br> получи приз от<br> молла
+					Загрузи фото, сделай<br> пост в соц.сетях и<br> получи приз.
 				</div>
 			</div>
 			<div class="header_unauth_main_text_container">
