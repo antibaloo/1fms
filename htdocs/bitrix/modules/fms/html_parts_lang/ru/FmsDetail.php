@@ -18,7 +18,7 @@ $MESS['PART_COND_action'] = 'Действие';
 $MESS['SPECIAL_MISSION'] = 'Специальное задание';
 
 $MESS['GOING_PEOPLE'] = 'Мобшопперы';
-$MESS['FMS_LEADER_TITLE'] = 'МОБШОППЕРЫ';
+$MESS['FMS_LEADER_TITLE'] = 'Флешмоберы';
 
 $MESS['INVITE_FRIEND'] = 'Пригласи друга';
 $MESS['INVITE'] = 'Invite';
