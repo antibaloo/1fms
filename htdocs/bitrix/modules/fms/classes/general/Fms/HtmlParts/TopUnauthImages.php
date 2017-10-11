@@ -22,7 +22,7 @@ public static function show () {?>
 				</div>
 			</div>
 			<div class="header_unauth_main_text_container">
-				<div class="header_unauth_main_text">Флэшмоб распродажи для студентов</div>
+				<div class="header_unauth_main_text"></div>
 				<div class="header_unauth_fb">
 					<div class="fb-like widget" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true" data-font="lucida grande"></div>
 				</div>
