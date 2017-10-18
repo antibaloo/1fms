@@ -50,7 +50,7 @@ $isIndexPage = S5_Bitrix_IndexPageDetector::detect();
 		<script src="/js/media.archive.js"></script>
 		<script src="/js/modernizr.custom.js"></script>
 		<script type="text/javascript" src="/js/js.js"></script>
-		
+		<script src="//yastatic.net/share2/share.js"></script>
 		<script type="text/javascript">
 			var isLteIe7 = false;
 			var $document = $(document);
