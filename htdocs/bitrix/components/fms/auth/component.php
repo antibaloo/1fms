@@ -30,7 +30,7 @@ if (!$USER->IsAdmin()) {
 			
 			if ($params['go']= 1 && $params['fms_id'] >0 && $params['user'] == 'none'){//Вызов авторизации по нажатию кнопки "Я иду"
 				$goingData = $fmsImGoingManager->go($params['fms_id'], $USER->GetID());
-				$pageData = $fmsesGetter->getDataForDetailPageById($_POST['fms_id']);
+				$pageData = $fmsesGetter->getDataForDetailPageById($params['fms_id']);
 				$fmsData = $pageData['fms'];
 				if ($goingData['is_new'] and $USER->GetEmail()) {
 					$fmsEmailsSender->sendTemplate(array(
