@@ -42,7 +42,7 @@ public static function show ($params = array()) {
 			if ($USER->IsAuthorized()) {
 				FmsButton::show($fmsData['ID'], $my_role, $appearance, "$disabledClickClass $class", '', $fmsData);
 			} else {
-				FmsButton::showLink('/auth/?back_url='.urlencode($_SERVER['REQUEST_URI']), $my_role, $appearance, "$disabledClickClass $class", '', $fmsData);
+				FmsButton::showLink('/auth/?back_url='.urlencode($_SERVER['REQUEST_URI'].'?go=1&fms_id='.$fmsData['ID'].'&user=none'), $my_role, $appearance, "$disabledClickClass $class", '', $fmsData);
 			}
 		};
 		//echo '<pre>'; print_r($fmsData); echo '</pre>'; exit();
