@@ -86,10 +86,13 @@ public static function show ($params = array()) {
 
 	$APPLICATION->AddViewContent("plusoru_meta_url", "<meta property=\"og:url\" content=\"{$plusoUrl}\">");
 
-    $plusoImage = \Fms\ShareImages::create()->getImageSrcByUserAgent($fmsId);
-
-    $plusoImageMeta = '<meta property="og:image" content="'.$plusoImage.'" /><link rel="image_src" href="'.$plusoImage.'" />';
-    $APPLICATION->AddViewContent("plusoru_meta_images", $plusoImageMeta);
+    //$plusoImage = \Fms\ShareImages::create()->getImageSrcByUserAgent($fmsId);
+    //$plusoImageMeta = '<meta property="og:image" content="'.$plusoImage.'" /><link rel="image_src" href="'.$plusoImage.'" />';
+    //$APPLICATION->AddViewContent("plusoru_meta_images", $plusoImageMeta);
+		$plusoImage = "http://{$_SERVER['HTTP_HOST']}" .$p['fms_block_params']['data']["DETAIL_PICTURE"]["SRC"];
+		$APPLICATION->AddViewContent("plusoru_meta_images", "<meta property=\"og:image\" content=\"{$plusoImage}\" /><link rel=\"image_src\" href=\"{$plusoImage}\" />");
+		$APPLICATION->AddViewContent("plusoru_meta_image_width", '<meta property="og:image:width" content="'.$p['fms_block_params']['data']["DETAIL_PICTURE"]['WIDTH'].'"/>');
+		$APPLICATION->AddViewContent("plusoru_meta_image_height", '<meta property="og:image:height" content="'.$p['fms_block_params']['data']["DETAIL_PICTURE"]['HEIGHT'].'"/>');
 
 	$arFilter = Array("IBLOCK_ID"=>$s5BitrixCodes->getIblockId('rating_awards'), 'PROPERTY_MALL' => $p['data']['fms']['PROPERTY_OPERATOR_VALUE']['UF_OP_MALL']['ID'], 'PROPERTY_MONTH'=>date('n'), 'PROPERTY_YEAR'=>date('Y'));
 	$res = \CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize"=>1), array('ID', 'IBLOCK_ID', 'PROPERTY_FLASHMOBBER','PROPERTY_BEST_FRIEND', 'PROPERTY_PHOTOGRAPHER', 'PROPERTY_FAVORITE', 'PROPERTY_TOTAL'));
@@ -163,7 +166,7 @@ public static function show ($params = array()) {
 				<div class="fmsDetail_invite_message"></div>
 			</form>
 			
-			<div class="ya-share2" data-services="viber,telegram"></div>
+			<div class="ya-share2" data-services="viber,whatsapp,telegram" data-direction="vertical"></div>
 			
 		</div>
 	<?}?>
@@ -811,3 +814,20 @@ $('.deleteButton').on('vclick', function () {
 });</script>
 
 <?}}?>
+<script>
+	$(window).load(function(){
+		$("span.ya-share2__title").each(function(){
+			var temp = $(this).text();
+			$(this).text("Пригласи в "+temp);
+		});
+		$("li.ya-share2__item").each(function(){
+			$(this).css('background', '#f3f3f3');
+		});
+		$("li.ya-share2__item").mouseout(function (){
+			$(this).css('background', '#f3f3f3');
+		});
+		$("li.ya-share2__item").mouseover(function(){
+			$(this).css('background', '#dbecff');
+		});
+	});	
+</script>
