@@ -371,7 +371,7 @@ public static function show ($params = array()) {
 							<?=GetMessage('PEOPLE')?>
 						<?}?>
 					</div>
-					<div class="fmsBlock_paramName"><?=($typeCode == 'event')?"НЕОБХОДИМО УЧАСТНИКОВ":GetMessage('PEOPLE_TO_ACTIVATE')?></div>
+					<div class="fmsBlock_paramName"><?=($typeCode == 'event')?GetMessage('PEOPLE_NEED'):GetMessage('PEOPLE_TO_ACTIVATE')?></div>
 					<?
 					$meterMin = -200;
 					$meterMax = -121;
