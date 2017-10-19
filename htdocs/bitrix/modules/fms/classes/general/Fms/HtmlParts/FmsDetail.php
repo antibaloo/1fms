@@ -166,7 +166,7 @@ public static function show ($params = array()) {
 				<div class="fmsDetail_invite_message"></div>
 			</form>
 			
-			<div class="ya-share2" data-services="viber,whatsapp,telegram" data-direction="vertical"></div>
+			<div class="ya-share2" data-services="viber,whatsapp,telegram" data-direction="vertical" data-description="<?=$plusoruDescription?>" data-image="<?=$plusoImage?>" data-title="<?=$plusoruTitle?>" data-url="<?=$plusoUrl?>"></div>
 			
 		</div>
 	<?}?>
