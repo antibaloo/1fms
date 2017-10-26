@@ -12,6 +12,7 @@ public static function show ($params = array()) {
 	$p = array_merge($default, $params);
 	$location = $p['location'];
 	$data = $p['data'];
+	//echo "<pre>";print_r($data);echo "</pre>";
 	if ($location == 'detail') {
 		$disabledClickClass = '';
 		$isAliveLocation    = true;
