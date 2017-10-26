@@ -555,8 +555,8 @@ function onBeforeFmsIndexHandler ($params) {
 	return $params;
 }
 
-/*if ($_GET['user'] and $_GET['ELEMENT_ID']) 
-	\Bitrix\Main\Diag\Debug::writeToFile(array('SERVER' => $_SERVER, 'user'=>$_GET['user'], 'fms' => $_GET['ELEMENT_ID'] ),"","/debug.txt");*/
+if ($_GET['user'] and $_GET['ELEMENT_ID']) 
+	\Bitrix\Main\Diag\Debug::writeToFile(array('SERVER' => $_SERVER, 'user'=>$_GET['user'], 'fms' => $_GET['ELEMENT_ID'] ),"","/debug.txt");
 # реферальная ссылка
 if ($_GET['user'] and $_GET['ELEMENT_ID'] /*and $_SERVER['HTTP_REFERER']*/){
 	
