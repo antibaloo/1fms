@@ -613,7 +613,7 @@ if ($_GET['user'] and $_GET['ELEMENT_ID'] /*and $_SERVER['HTTP_REFERER']*/){
 			$arLoadProductArray = Array(
 				"IBLOCK_ID"      => $s5BitrixCodes->getIblockId('referal_ip'),
 				"PROPERTY_VALUES"=> $PROP,
-				"NAME"           => $_SERVER['HTTP_X_FORWARDED_FOR'],
+				"NAME"           => $_SERVER['REMOTE_ADDR'], //$_SERVER['HTTP_X_FORWARDED_FOR']
 				"ACTIVE"         => "Y", 
 			);
 
@@ -627,7 +627,7 @@ if ($_GET['user'] and $_GET['ELEMENT_ID'] /*and $_SERVER['HTTP_REFERER']*/){
 	$res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize"=>1), array('PROPERTY_MALL', 'ID', 'IBLOCK_ID'));
 	if($ob = $res->GetNext()) {
 		$arFilterIP = Array("IBLOCK_ID"=>$s5BitrixCodes->getIblockId('referal2'), "PROPERTY_MALL"=>$ob['PROPERTY_MALL_VALUE'],'PROPERTY_USER'=>$user_id,
-			'PROPERTY_MONTH'=>date('n'),'PROPERTY_YEAR'=>date('Y'),'PROPERTY_ALBUM'=>$_GET['album'],'PROPERTY_IP'=>$_SERVER['HTTP_X_FORWARDED_FOR']);
+			'PROPERTY_MONTH'=>date('n'),'PROPERTY_YEAR'=>date('Y'),'PROPERTY_ALBUM'=>$_GET['album'],'PROPERTY_IP'=>$_SERVER['REMOTE_ADDR']);
 		$resIP = CIBlockElement::GetList(Array(), $arFilterIP, false, Array("nPageSize"=>1), array('ID', 'IBLOCK_ID'));
 		if($obIP = $resIP->GetNext()) {
 
@@ -641,7 +641,7 @@ if ($_GET['user'] and $_GET['ELEMENT_ID'] /*and $_SERVER['HTTP_REFERER']*/){
 			$PROP['MONTH'] = date('n');
 			$PROP['YEAR'] = date('Y');
 			$PROP['ALBUM'] = $_GET['album'];
-			$PROP['IP'] = $_SERVER['HTTP_X_FORWARDED_FOR'];
+			$PROP['IP'] = $_SERVER['REMOTE_ADDR'];
 			
 			$code = "album{$_GET['album']}";
 			if ($_GET['photo']){
