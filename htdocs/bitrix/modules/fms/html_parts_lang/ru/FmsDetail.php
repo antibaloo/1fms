@@ -30,7 +30,7 @@ $MESS['MALL_ADDRESS'] = 'Адрес';
 $MESS['STORE_NAME'] = 'Оператор';
 $MESS['STORE_LOCATION'] = 'Расположение в центре';
 
-$MESS['MALL_MAP'] = 'Карта молла';
+$MESS['MALL_MAP'] = 'Карта центра';//$MESS['MALL_MAP'] = 'Карта молла';
 $MESS['TOWN_MAP'] = 'Карта города';
 $MESS['SHOP_SUBSCRIPTION'] = 'Подписка на оператора';
 
