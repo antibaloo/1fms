@@ -614,8 +614,7 @@ public static function show ($params = array()) {
 	<?if ($data['time_left']) {?>
 		(function () {
 			var timeLeft = $('#time_left_value');
-            if (timeLeft.length <= 0) return false;
-
+			if ($('#time_left_value').html().trim() == "00:00:00") return false;
 			var timeParts = timeLeft.html().split(/:/);
 			var timeLeftInterval = setInterval(
 				function () {
