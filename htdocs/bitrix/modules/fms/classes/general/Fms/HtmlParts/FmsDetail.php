@@ -347,7 +347,7 @@ public static function show ($params = array()) {
 					<div class="fmsDetail_map fmsDetail_mallMap">
 						<div class="fmsDetail_map_name"><?=GetMessage('MALL_MAP')?></div>
 						<div class="fmsDetail_map_content fmsDetail_mallMap_content">
-							<img src="<?=$data['location']['mall_map']['SRC']?>" height="auto" width="802" alt="Карта молла">
+							<img src="<?=$data['location']['mall_map']['SRC']?>" height="auto" width="802" alt="">
 						</div>
 					</div>
 					<div class="fmsDetail_map fmsDetail_cityMap">
