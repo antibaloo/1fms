@@ -65,3 +65,7 @@ $MESS['SHARE_ALREADY_PEOPLE'] = 'Уже идут';
 $MESS['DISCOUNT_FOR_FRIENDS'] = 'Скидки для друзей';
 
 $MESS['PLUSO_LANG'] = 'ru';
+
+$MESS['MYCOORDS'] = 'свое';
+$MESS['MALLCOORDS'] = 'центр';
+$MESS['EVENTPLACE'] = 'Место проведения события';
