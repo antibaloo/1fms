@@ -90,10 +90,23 @@ public static function show ($params = array()) {
     //$plusoImage = \Fms\ShareImages::create()->getImageSrcByUserAgent($fmsId);
     //$plusoImageMeta = '<meta property="og:image" content="'.$plusoImage.'" /><link rel="image_src" href="'.$plusoImage.'" />';
     //$APPLICATION->AddViewContent("plusoru_meta_images", $plusoImageMeta);
+	//clearstatcache();
+	$pics = \Fms\ShareImages::create()->getImagesSrc($fmsData['ID']);
+	if ($pics['facebook'] == 'http://1fms.com/images/giant_share_sign.png'){
 		$plusoImage = "http://{$_SERVER['HTTP_HOST']}" .$p['fms_block_params']['data']["DETAIL_PICTURE"]["SRC"];
 		$APPLICATION->AddViewContent("plusoru_meta_images", "<meta property=\"og:image\" content=\"{$plusoImage}\" /><link rel=\"image_src\" href=\"{$plusoImage}\" />");
 		$APPLICATION->AddViewContent("plusoru_meta_image_width", '<meta property="og:image:width" content="'.$p['fms_block_params']['data']["DETAIL_PICTURE"]['WIDTH'].'"/>');
 		$APPLICATION->AddViewContent("plusoru_meta_image_height", '<meta property="og:image:height" content="'.$p['fms_block_params']['data']["DETAIL_PICTURE"]['HEIGHT'].'"/>');
+	}else{
+		$APPLICATION->AddViewContent("plusoru_meta_images", "<meta property=\"og:image\" content=\"{$pics['facebook']}\" /><link rel=\"image_src\" href=\"{$plusoImage}\" />");
+		$APPLICATION->AddViewContent("plusoru_meta_image_width", '<meta property="og:image:width" content="802"/>');
+		$APPLICATION->AddViewContent("plusoru_meta_image_height", '<meta property="og:image:height" content="422"/>');
+	}
+	//echo "<pre>";print_r($pics);echo "</pre>";
+	
+	
+	$APPLICATION->AddViewContent("plusoru_meta_type", '<meta property="og:type" content="website"/>');
+	$APPLICATION->AddViewContent("plusoru_fb_id", ' <meta property="fb:app_id" content="107133133301740"/>');
 
 	$arFilter = Array("IBLOCK_ID"=>$s5BitrixCodes->getIblockId('rating_awards'), 'PROPERTY_MALL' => $p['data']['fms']['PROPERTY_OPERATOR_VALUE']['UF_OP_MALL']['ID'], 'PROPERTY_MONTH'=>date('n'), 'PROPERTY_YEAR'=>date('Y'));
 	$res = \CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize"=>1), array('ID', 'IBLOCK_ID', 'PROPERTY_FLASHMOBBER','PROPERTY_BEST_FRIEND', 'PROPERTY_PHOTOGRAPHER', 'PROPERTY_FAVORITE', 'PROPERTY_TOTAL'));
@@ -817,6 +830,10 @@ $('.deleteButton').on('vclick', function () {
 <?}}?>
 <script>
 	$(window).load(function(){
+		/*console.log("top: "+$('.fmsBlock_mDetail').offset().top);
+		console.log("left: "+$('.fmsBlock_mDetail').offset().left);
+		console.log("width: "+$('.fmsBlock_mDetail').width());
+		console.log("height: "+$('.fmsBlock_mDetail').height());*/
 		$("span.ya-share2__title").each(function(){
 			var temp = $(this).text();
 			$(this).text("Пригласи в "+temp);

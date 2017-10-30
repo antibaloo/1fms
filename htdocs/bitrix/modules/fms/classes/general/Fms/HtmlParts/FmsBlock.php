@@ -613,35 +613,37 @@ public static function show ($params = array()) {
 <script>$(document).ready(function () {
 	<?if ($data['time_left']) {?>
 		(function () {
-			var timeLeft = $('#time_left_value');
-			if ($('#time_left_value').html().trim() == "00:00:00") return false;
-			var timeParts = timeLeft.html().split(/:/);
-			var timeLeftInterval = setInterval(
-				function () {
-					timeParts[2]--;
-					if (timeParts[0] == 0 && timeParts[1] == 0 & timeParts[2] == 0) {
-						clearInterval(timeLeftInterval);
-					}
-					if (timeParts[2] == -1) {
-						timeParts[2] = 59;
-						timeParts[1]--;
-						if (timeParts[1] == -1) {
-							timeParts[1] = 59;
-							timeParts[0]--;
+			if ($('*').is('#time_left_value')){
+				var timeLeft = $('#time_left_value');
+				if ($('#time_left_value').html().trim() == "00:00:00") return false;
+				var timeParts = timeLeft.html().split(/:/);
+				var timeLeftInterval = setInterval(
+					function () {
+						timeParts[2]--;
+						if (timeParts[0] == 0 && timeParts[1] == 0 & timeParts[2] == 0) {
+							clearInterval(timeLeftInterval);
 						}
-					}
-					for (var a in timeParts) {
-						if (timeParts[a].toString().length == 1) {
-							timeParts[a] = '0'+timeParts[a];
+						if (timeParts[2] == -1) {
+							timeParts[2] = 59;
+							timeParts[1]--;
+							if (timeParts[1] == -1) {
+								timeParts[1] = 59;
+								timeParts[0]--;
+							}
 						}
-					}
-					timeLeft.html(timeParts[0]+':'+timeParts[1]+':'+timeParts[2]);
-				},
-				1000
-			);
+						for (var a in timeParts) {
+							if (timeParts[a].toString().length == 1) {
+								timeParts[a] = '0'+timeParts[a];
+							}
+						}
+						timeLeft.html(timeParts[0]+':'+timeParts[1]+':'+timeParts[2]);
+					},
+					1000
+				);
+			}
 		})();
-	<?}?>
-});</script>
+		<?}?>
+	});</script>
 <?}?>
 
 

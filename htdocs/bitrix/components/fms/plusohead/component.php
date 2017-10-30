@@ -43,6 +43,7 @@ if ($_GET['album']){
 	$APPLICATION->AddViewContent("plusoru_meta_description", "<meta property=\"og:description\" content=\"{$arResult['DESCRIPTION']}\" />");
 	$APPLICATION->AddViewContent("plusoru_meta_url", "<meta property=\"og:url\" content=\""."http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']."\" />");
 	$APPLICATION->AddViewContent("plusoru_meta_type", '<meta property="og:type" content="website"/>');
+	$APPLICATION->AddViewContent("plusoru_fb_id", ' <meta property="fb:app_id" content="107133133301740"/>');
 }
 
 $this->IncludeComponentTemplate();

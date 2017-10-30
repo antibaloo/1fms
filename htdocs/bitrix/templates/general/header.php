@@ -12,6 +12,7 @@ $isIndexPage = S5_Bitrix_IndexPageDetector::detect();
 		<?$APPLICATION->ShowViewContent("plusoru_meta_image_height");?>
     <?$APPLICATION->ShowViewContent("plusoru_meta_url");?>
 		<?$APPLICATION->ShowViewContent("plusoru_meta_type");?>
+		<?$APPLICATION->ShowViewContent("plusoru_fb_id");?>
 
 		
 		<meta name="viewport" content="width=1200">
