@@ -330,6 +330,58 @@ public static function show ($params = array()) {
 						<?}?>
 					</div>
 				<?}?>
+				<?if ($location == 'fms_form') {?>
+				<div class="fmsDetail_participation">
+					<div class="fmsDetail_participation_brief">
+						<span class="fmsDetail_strong"><?=GetMessage('EVENTPLACE')?>:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<div class="fmsForm_partCondRadios">
+							<input name="coords" id="mallcoords" type="radio" value="mallcoords"><label for="mallcoords"><?=GetMessage('MALLCOORDS')?></label>
+							<input name="coords" id="mycoords" type="radio" value="mycoords"><label for="mycoords"><?=GetMessage('MYCOORDS')?></label>
+						</div>
+					</div>
+				</div>
+				<input name="LANTITUDE" type="hidden" value="<?=$formValues['LANTITUDE']?>">
+				<input name="LONGITUDE" type="hidden" value="<?=$formValues['LONGITUDE']?>">
+				<br>
+				<?}else{?>
+				<?//echo "<pre>";print_r($data);echo "</pre>";?>
+				<?if($data['fms']['PROPERTY_LATITUDE_VALUE'] && $data['fms']['PROPERTY_LONGITUDE_VALUE']){?>
+				<div class="fmsDetail_place">
+					<div class="fmsDetail_map fmsDetail_cityMap">
+						<div class="fmsDetail_map_name"><?=GetMessage('EVENTPLACE')?></div>
+						<div class="fmsDetail_map_content fmsDetail_cityMap_content">
+							<?
+							$googleMapData = array(
+								'google_lat' => $data['fms']['PROPERTY_LATITUDE_VALUE'],
+								'google_lon' => $data['fms']['PROPERTY_LONGITUDE_VALUE'],
+								'google_scale' => 13,
+								'PLACEMARKS' => array(
+									array(
+										'LAT' => $data['fms']['PROPERTY_LATITUDE_VALUE'],
+										'LON' => $data['fms']['PROPERTY_LONGITUDE_VALUE'],
+										'TEXT' => GetMessage('EVENTPLACE'),
+									),
+								),
+							);
+							$APPLICATION->IncludeComponent(
+								"bitrix:map.google.view",
+								"",
+								Array(
+									"INIT_MAP_TYPE" => "ROADMAP",
+									"MAP_DATA" => serialize($googleMapData),
+									"MAP_WIDTH" => "807",
+									"MAP_HEIGHT" => "319",
+									"CONTROLS" => array("SMALL_ZOOM_CONTROL", "TYPECONTROL", "SCALELINE"),
+									"OPTIONS" => array("ENABLE_SCROLL_ZOOM", "ENABLE_DBLCLICK_ZOOM", "ENABLE_DRAGGING", "ENABLE_KEYBOARD"),
+									"MAP_ID" => ""
+								),
+							false
+							);
+							?>
+						</div>
+					</div>
+				</div>
+				<?}else{?>
 				<div class="fmsDetail_place">
 					<div class="fmsDetail_place_description">
 						<div class="fmsDetail_place_title fmsDetail_strong"><?=GetMessage('PLACE')?></div>
@@ -399,6 +451,8 @@ public static function show ($params = array()) {
 						</div>
 					</div>
 				</div>
+				<?}?>
+				<?}?>
 				<div class="fmsDetail_bottomControls">
 					<div class="fmsDetail_shopSubscr">
 						<div class="fmsDetail_shopSubscr_text"><?=GetMessage('SHOP_SUBSCRIPTION')?></div>
