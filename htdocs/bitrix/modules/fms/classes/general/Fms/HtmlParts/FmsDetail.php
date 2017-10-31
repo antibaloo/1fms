@@ -336,6 +336,7 @@ public static function show ($params = array()) {
 				<input id="latitudeMallValue" type="hidden" value="<?=$data['location']['geo_map']['lat']?>">
 				<input id="longitudeMallValue" type="hidden" value="<?=$data['location']['geo_map']['lon']?>">
 				<?}?>
+				<br>
 				<div class="fmsDetail_description_title fmsDetail_strong"><?=GetMessage('PLACE')?></div>
 				<?if ($location == 'fms_form') {?>
 				<input type="radio" name="coordswitch" id="mallcoords" <?=($formValues['LATITUDE'] && $formValues['LONGITUDE'])?"":"checked"?> value="mall"><label for="mallcoords"><?=GetMessage('MALLCOORDS')?></label><br>

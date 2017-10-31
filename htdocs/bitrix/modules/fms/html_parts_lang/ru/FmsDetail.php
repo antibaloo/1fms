@@ -12,8 +12,8 @@ $MESS['DESCRIPTION'] = 'Описание';
 $MESS['AWARDS'] = 'Награды';
 $MESS['MALL_PRIZES_LIST'] = 'Награды от молла';
 
-$MESS['PART_COND'] = 'Условие участия в флэшмобе';
-$MESS['PART_COND_ticket'] = 'Билет';
+$MESS['PART_COND'] = 'Условие участия ';//'Условие участия в флэшмобе'
+$MESS['PART_COND_ticket'] = 'Регистрация'; //'Билет'
 $MESS['PART_COND_action'] = 'Действие';
 $MESS['SPECIAL_MISSION'] = 'Специальное задание';
 
