@@ -23,7 +23,7 @@ $MESS['FMS_LEADER_TITLE'] = 'Флешмоберы';
 $MESS['INVITE_FRIEND'] = 'Пригласи друга';
 $MESS['INVITE'] = 'Invite';
 
-$MESS['PLACE'] = 'Место проведения флэшмоба';
+$MESS['PLACE'] = 'Место проведения';
 
 $MESS['MALL_NAME'] = 'Центр';
 $MESS['MALL_ADDRESS'] = 'Адрес';
