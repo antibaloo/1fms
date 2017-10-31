@@ -66,6 +66,6 @@ $MESS['DISCOUNT_FOR_FRIENDS'] = 'Скидки для друзей';
 
 $MESS['PLUSO_LANG'] = 'ru';
 
-$MESS['MYCOORDS'] = 'свое';
-$MESS['MALLCOORDS'] = 'центр';
-$MESS['EVENTPLACE'] = 'Место проведения события';
+$MESS['MYCOORDS'] = 'указать другой адрес';
+$MESS['MALLCOORDS'] = 'использовать адрес центра';
+$MESS['ENTERADDRESS'] = 'введите адрес события';

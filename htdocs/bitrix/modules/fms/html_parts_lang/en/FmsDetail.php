@@ -64,6 +64,6 @@ $MESS['DISCOUNT_FOR_FRIENDS'] = 'Discounts for friends';
 
 $MESS['PLUSO_LANG'] = 'en';
 
-$MESS['MYCOORDS'] = 'center';
-$MESS['MALLCOORDS'] = 'mall';
-$MESS['EVENTPLACE'] = 'Event place';
+$MESS['MYCOORDS'] = 'use another address';
+$MESS['MALLCOORDS'] = 'use mall address';
+$MESS['ENTERADDRESS'] = 'enter event address';
