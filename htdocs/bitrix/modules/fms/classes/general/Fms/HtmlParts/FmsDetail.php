@@ -331,58 +331,66 @@ public static function show ($params = array()) {
 					</div>
 				<?}?>
 				<?if ($location == 'fms_form') {?>
-				<div class="fmsDetail_participation">
-					<div class="fmsDetail_participation_brief">
-						<span class="fmsDetail_strong"><?=GetMessage('EVENTPLACE')?>:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<div class="fmsForm_partCondRadios">
-							<input name="coords" id="mallcoords" type="radio" value="mallcoords"><label for="mallcoords"><?=GetMessage('MALLCOORDS')?></label>
-							<input name="coords" id="mycoords" type="radio" value="mycoords"><label for="mycoords"><?=GetMessage('MYCOORDS')?></label>
+				<input id="latitudeValue" name="LATITUDE" type="hidden" value="<?=$formValues['LATITUDE']?>">
+				<input id="longitudeValue" name="LONGITUDE" type="hidden" value="<?=$formValues['LONGITUDE']?>"><br>
+				<input id="latitudeMallValue" type="hidden" value="<?=$data['location']['geo_map']['lat']?>">
+				<input id="longitudeMallValue" type="hidden" value="<?=$data['location']['geo_map']['lon']?>">
+				<?}?>
+				<div class="fmsDetail_description_title fmsDetail_strong"><?=GetMessage('PLACE')?></div>
+				<?if ($location == 'fms_form') {?>
+				<input type="radio" name="coordswitch" id="mallcoords" <?=($formValues['LATITUDE'] && $formValues['LONGITUDE'])?"":"checked"?> value="mall"><label for="mallcoords"><?=GetMessage('MALLCOORDS')?></label><br>
+				<input type="radio" name="coordswitch" id="mycoords" <?=($formValues['LATITUDE'] && $formValues['LONGITUDE'])?"checked":""?> value="my"><label for="mycoords"><?=GetMessage('MYCOORDS')?></label>
+				<br><br>
+				<input id="ownaddress"  class="stdForm_inputtext fmsForm_w734" type="text" value="" placeholder="<?=GetMessage('ENTERADDRESS')?>">
+				&nbsp;<button type="button" id="addressok" >OK</button>
+				<div class="fmsDetail_place">
+					<div class="fmsDetail_place_description" id="malldesc" style="<?=($formValues['LATITUDE'] && $formValues['LONGITUDE'])?"display:none":"display:block"?>">
+						
+						<div class="fmsDetail_place_description_image">
+							<a class="colorbox" href="<?=$data['location']['place']['operator_original_image']['SRC']?>">
+								<img alt="" src="<?=$data['location']['place']['operator_image']['SRC']?>">
+							</a>
+						</div>
+						<div class="fmsDetail_place_description_text">
+							<div>
+								<?=GetMessage('MALL_NAME')?>:
+								<?=$data['location']['place']['mall_name']?>
+							</div>
+							<div>
+								<?=GetMessage('MALL_ADDRESS')?>:
+								<?=$data['location']['place']['mall_address']?>
+							</div>
+							<div>
+								<?=GetMessage('STORE_NAME')?>:
+								<?=$data['location']['place']['operator_name']?>
+							</div>
+							<div>
+								<?=GetMessage('STORE_LOCATION')?>:
+								<?=$data['location']['place']['operator_location']?>
+							</div>
+						</div>
+					</div>
+					<div class="fmsDetail_map fmsDetail_mallMap" id="mallmap" style="<?=($formValues['LATITUDE'] && $formValues['LONGITUDE'])?"display:none":"display:block"?>">
+						<div class="fmsDetail_map_name"><?=GetMessage('MALL_MAP')?></div>
+						<div class="fmsDetail_map_content fmsDetail_mallMap_content">
+							<img src="<?=$data['location']['mall_map']['SRC']?>" height="auto" width="802" alt="">
+						</div>
+					</div>
+					<div class="fmsDetail_map fmsDetail_cityMap">
+						<div class="fmsDetail_map_name" id="mapdesc" style="<?=($formValues['LATITUDE'] && $formValues['LONGITUDE'])?"display:none":"display:block"?>"><?=GetMessage('TOWN_MAP')?></div>
+						<div class="fmsDetail_map_content fmsDetail_cityMap_content">
+							<div id="mymap" style="height:319px;width:807px;"></div>
 						</div>
 					</div>
 				</div>
-				<input name="LANTITUDE" type="hidden" value="<?=$formValues['LANTITUDE']?>">
-				<input name="LONGITUDE" type="hidden" value="<?=$formValues['LONGITUDE']?>">
 				<br>
 				<?}else{?>
-				<?//echo "<pre>";print_r($data);echo "</pre>";?>
-				<?if($data['fms']['PROPERTY_LATITUDE_VALUE'] && $data['fms']['PROPERTY_LONGITUDE_VALUE']){?>
 				<div class="fmsDetail_place">
-					<div class="fmsDetail_map fmsDetail_cityMap">
-						<div class="fmsDetail_map_name"><?=GetMessage('EVENTPLACE')?></div>
-						<div class="fmsDetail_map_content fmsDetail_cityMap_content">
-							<?
-							$googleMapData = array(
-								'google_lat' => $data['fms']['PROPERTY_LATITUDE_VALUE'],
-								'google_lon' => $data['fms']['PROPERTY_LONGITUDE_VALUE'],
-								'google_scale' => 13,
-								'PLACEMARKS' => array(
-									array(
-										'LAT' => $data['fms']['PROPERTY_LATITUDE_VALUE'],
-										'LON' => $data['fms']['PROPERTY_LONGITUDE_VALUE'],
-										'TEXT' => GetMessage('EVENTPLACE'),
-									),
-								),
-							);
-							$APPLICATION->IncludeComponent(
-								"bitrix:map.google.view",
-								"",
-								Array(
-									"INIT_MAP_TYPE" => "ROADMAP",
-									"MAP_DATA" => serialize($googleMapData),
-									"MAP_WIDTH" => "807",
-									"MAP_HEIGHT" => "319",
-									"CONTROLS" => array("SMALL_ZOOM_CONTROL", "TYPECONTROL", "SCALELINE"),
-									"OPTIONS" => array("ENABLE_SCROLL_ZOOM", "ENABLE_DBLCLICK_ZOOM", "ENABLE_DRAGGING", "ENABLE_KEYBOARD"),
-									"MAP_ID" => ""
-								),
-							false
-							);
-							?>
-						</div>
-					</div>
-				</div>
-				<?}else{?>
-				<div class="fmsDetail_place">
+					<input id="latitudeValue" type="hidden" value="<?=$data['fms']['PROPERTY_LATITUDE_VALUE']?>">
+					<input id="longitudeValue" type="hidden" value="<?=$data['fms']['PROPERTY_LONGITUDE_VALUE']?>">
+					<input id="latitudeMallValue" type="hidden" value="<?=$data['location']['geo_map']['lat']?>">
+					<input id="longitudeMallValue" type="hidden" value="<?=$data['location']['geo_map']['lon']?>">
+					<?if($data['fms']['PROPERTY_LATITUDE_VALUE'] == '' && $data['fms']['PROPERTY_LONGITUDE_VALUE'] == ''){?>
 					<div class="fmsDetail_place_description">
 						<div class="fmsDetail_place_title fmsDetail_strong"><?=GetMessage('PLACE')?></div>
 						<div class="fmsDetail_place_description_image">
@@ -415,43 +423,16 @@ public static function show ($params = array()) {
 							<img src="<?=$data['location']['mall_map']['SRC']?>" height="auto" width="802" alt="">
 						</div>
 					</div>
+					<?}?>
 					<div class="fmsDetail_map fmsDetail_cityMap">
+						<?if($data['fms']['PROPERTY_LATITUDE_VALUE'] == '' && $data['fms']['PROPERTY_LONGITUDE_VALUE'] == ''){?>
 						<div class="fmsDetail_map_name"><?=GetMessage('TOWN_MAP')?></div>
+						<?}?>
 						<div class="fmsDetail_map_content fmsDetail_cityMap_content">
-							<?
-							$geoMapData = $data['location']['geo_map'];
-							$coordsHash = array();
-							$googleMapData = array(
-								'google_lat' => $geoMapData['lat'],
-								'google_lon' => $geoMapData['lon'],
-								'google_scale' => 13,
-								'PLACEMARKS' => array(
-									array(
-										'LAT' => $geoMapData['lat'],
-										'LON' => $geoMapData['lon'],
-										'TEXT' => $geoMapData['text'],
-									),
-								),
-							);
-							$APPLICATION->IncludeComponent(
-								"bitrix:map.google.view",
-								"",
-								Array(
-									"INIT_MAP_TYPE" => "ROADMAP",
-									"MAP_DATA" => serialize($googleMapData),
-									"MAP_WIDTH" => "807",
-									"MAP_HEIGHT" => "319",
-									"CONTROLS" => array("SMALL_ZOOM_CONTROL", "TYPECONTROL", "SCALELINE"),
-									"OPTIONS" => array("ENABLE_SCROLL_ZOOM", "ENABLE_DBLCLICK_ZOOM", "ENABLE_DRAGGING", "ENABLE_KEYBOARD"),
-									"MAP_ID" => ""
-								),
-							false
-							);
-							?>
+							<div id="mymap" style="height:319px;width:807px;"></div>
 						</div>
 					</div>
 				</div>
-				<?}?>
 				<?}?>
 				<div class="fmsDetail_bottomControls">
 					<div class="fmsDetail_shopSubscr">
@@ -883,11 +864,16 @@ $('.deleteButton').on('vclick', function () {
 
 <?}}?>
 <script>
+	var marker, map;
 	$(window).load(function(){
-		/*console.log("top: "+$('.fmsBlock_mDetail').offset().top);
-		console.log("left: "+$('.fmsBlock_mDetail').offset().left);
-		console.log("width: "+$('.fmsBlock_mDetail').width());
-		console.log("height: "+$('.fmsBlock_mDetail').height());*/
+		if ($('input[type=radio][name=coordswitch]:checked').val() == 'mall'){
+			$("#ownaddress").hide();
+			$("#addressok").hide();
+		}
+		if ($('input[type=radio][name=coordswitch]:checked').val() == 'my'){
+			$("#ownaddress").show();
+			$("#addressok").show();
+		}
 		$("span.ya-share2__title").each(function(){
 			var temp = $(this).text();
 			$(this).text("Пригласи в "+temp);
@@ -901,5 +887,134 @@ $('.deleteButton').on('vclick', function () {
 		$("li.ya-share2__item").mouseover(function(){
 			$(this).css('background', '#dbecff');
 		});
+		$('input[type=radio][name=coordswitch]').change(function() {
+			if ($(this).val() == 'mall'){
+				$("#malldesc").show();
+				$("#mallmap").show();
+				$("#mapdesc").show();
+				$("#ownaddress").hide();
+				$("#addressok").hide();
+				$("#latitudeValue").val("");
+				$("#longitudeValue").val("");
+				marker.setMap(null);
+				marker = null;
+				var lat= parseFloat($("#latitudeMallValue").val());
+				var lon= parseFloat($("#longitudeMallValue").val());
+				marker = new google.maps.Marker({
+					map: map,
+					draggable: false,
+					animation: google.maps.Animation.DROP,
+					position: {lat: lat, lng: lon}
+				});
+				var pt = new google.maps.LatLng(lat, lon);
+				map.setCenter(pt);
+				map.setZoom(13);
+				marker.addListener('click', toggleBounce);
+			}
+			if ($(this).val() == 'my'){
+				$("#malldesc").hide();
+				$("#mallmap").hide();
+				$("#mapdesc").hide();
+				$("#ownaddress").show();
+				$("#addressok").show();
+				marker.setMap(null);
+				marker = null;
+				var lat= parseFloat($("#latitudeMallValue").val());
+				var lon= parseFloat($("#longitudeMallValue").val());
+				marker = new google.maps.Marker({
+					map: map,
+					draggable: true,
+					animation: google.maps.Animation.DROP,
+					position: {lat: lat, lng: lon}
+				});
+				var pt = new google.maps.LatLng(lat, lon);
+				map.setCenter(pt);
+				map.setZoom(13);
+
+				if ($("*").is("#fms_form")){
+					marker.addListener('dragend', function(e) {
+						$("#latitudeValue").val(e.latLng.lat());  // Широта маркера
+						$("#longitudeValue").val(e.latLng.lng());  // Долгота маркера
+					});
+				}
+				marker.addListener('click', toggleBounce);
+			}
+		});
+		$("#addressok").click(function(){
+			if ($("#ownaddress").val() !=""){
+				$.ajax({
+					url: "http://maps.googleapis.com/maps/api/geocode/json?",
+					type: "GET",
+					data: {address: $("#ownaddress").val()},
+					dataType: "json",
+					success: function (json) {
+						$("#ownaddress").val(json.results[0].formatted_address);
+						$("#latitudeValue").val(json.results[0].geometry.location.lat);
+						$("#longitudeValue").val(json.results[0].geometry.location.lng);
+						marker.setMap(null);
+						marker = null;
+						var lat= parseFloat($("#latitudeValue").val());
+						var lon= parseFloat($("#longitudeValue").val());
+						marker = new google.maps.Marker({
+							map: map,
+							draggable: true,
+							animation: google.maps.Animation.DROP,
+							position: {lat: lat, lng: lon}
+						});
+						var pt = new google.maps.LatLng(lat, lon);
+						map.setCenter(pt);
+						map.setZoom(13);
+						if ($("*").is("#fms_form")){
+							marker.addListener('dragend', function(e) {
+								$("#latitudeValue").val(e.latLng.lat());  // Широта маркера
+								$("#longitudeValue").val(e.latLng.lng());  // Долгота маркера
+							});
+						}
+						marker.addListener('click', toggleBounce);
+					},
+					error: function (json_encode) {
+						console.log("Ошибка запроса к googleapis");
+					},
+				});
+			}
+		});
+		
+		var lat,lon,drag;
+		if ($("*").is("#fms_form")){
+			lat=($("#latitudeValue").val()!="")?parseFloat($("#latitudeValue").val()):parseFloat($("#latitudeMallValue").val());
+			lon=($("#longitudeValue").val()!="")?parseFloat($("#longitudeValue").val()):parseFloat($("#longitudeMallValue").val());
+			drag =( $("#longitudeValue").val()!="" && $("#latitudeValue").val()!="" )?true:false;
+		}else{
+			lat=($("#latitudeValue").val()!="")?parseFloat($("#latitudeValue").val()):parseFloat($("#latitudeMallValue").val());
+			lon=($("#longitudeValue").val()!="")?parseFloat($("#longitudeValue").val()):parseFloat($("#longitudeMallValue").val());
+			drag = false
+		}
+		map = new google.maps.Map(document.getElementById('mymap'), {
+			zoom: 13,
+			center: {lat: lat, lng: lon}
+		});
+		
+		marker = new google.maps.Marker({
+			map: map,
+			draggable: drag,
+			animation: google.maps.Animation.DROP,
+			position: {lat: lat, lng: lon}
+		});
+		if ($("*").is("#fms_form")){
+			marker.addListener('dragend', function(e) {
+				$("#latitudeValue").val(e.latLng.lat());  // Широта маркера
+				$("#longitudeValue").val(e.latLng.lng());  // Долгота маркера
+			});
+		}
+		marker.addListener('click', toggleBounce);
+		
+		function toggleBounce() {
+		if (marker.getAnimation() !== null) {
+			marker.setAnimation(null);
+		} else {
+			marker.setAnimation(google.maps.Animation.BOUNCE);
+		}
+	}
 	});	
 </script>
+<script async defer src="https://maps.googleapis.com/maps/api/js"></script>
