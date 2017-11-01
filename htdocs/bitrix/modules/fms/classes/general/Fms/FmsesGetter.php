@@ -96,6 +96,7 @@ class FmsesGetter {
 				'PROPERTY_GOING_PEOPLE_CACHE',
 				'PROPERTY_LATITUDE',
 				'PROPERTY_LONGITUDE',
+				'PROPERTY_ADDRESS'
 			)
 		);
 		$list = array();

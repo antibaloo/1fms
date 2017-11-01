@@ -238,6 +238,9 @@ $fieldsDataHash = array(
 	'LONGITUDE' => array(
 		'role' => 'property',
 	),
+		'ADDRESS' => array(
+		'role' => 'property',
+	),
 );
 
 $checkBonusPeople = function ($value) {

@@ -342,8 +342,9 @@ public static function show ($params = array()) {
 				<input type="radio" name="coordswitch" id="mallcoords" <?=($formValues['LATITUDE'] && $formValues['LONGITUDE'])?"":"checked"?> value="mall"><label for="mallcoords"><?=GetMessage('MALLCOORDS')?></label><br>
 				<input type="radio" name="coordswitch" id="mycoords" <?=($formValues['LATITUDE'] && $formValues['LONGITUDE'])?"checked":""?> value="my"><label for="mycoords"><?=GetMessage('MYCOORDS')?></label>
 				<br><br>
-				<input id="ownaddress"  class="stdForm_inputtext fmsForm_w734" type="text" value="" placeholder="<?=GetMessage('ENTERADDRESS')?>">
+				<input id="ownaddress"  name="ADDRESS" class="stdForm_inputtext fmsForm_w734" type="text" placeholder="<?=GetMessage('ENTERADDRESS')?>"  value="<?=$formValues['ADDRESS']?>">
 				&nbsp;<button type="button" id="addressok" >OK</button>
+				<input id="malladdress" type="hidden" value="<?=$data['location']['place']['mall_address']?>">
 				<div class="fmsDetail_place">
 					<div class="fmsDetail_place_description" id="malldesc" style="<?=($formValues['LATITUDE'] && $formValues['LONGITUDE'])?"display:none":"display:block"?>">
 						
@@ -391,9 +392,10 @@ public static function show ($params = array()) {
 					<input id="longitudeValue" type="hidden" value="<?=$data['fms']['PROPERTY_LONGITUDE_VALUE']?>">
 					<input id="latitudeMallValue" type="hidden" value="<?=$data['location']['geo_map']['lat']?>">
 					<input id="longitudeMallValue" type="hidden" value="<?=$data['location']['geo_map']['lon']?>">
+					<input id="ownaddress" type="hidden" value="<?=$data['fms']['PROPERTY_ADDRESS_VALUE']?>">
+					<input id="malladdress" type="hidden" value="<?=$data['location']['place']['mall_address']?>">
 					<?if($data['fms']['PROPERTY_LATITUDE_VALUE'] == '' && $data['fms']['PROPERTY_LONGITUDE_VALUE'] == ''){?>
 					<div class="fmsDetail_place_description">
-						<div class="fmsDetail_place_title fmsDetail_strong"><?=GetMessage('PLACE')?></div>
 						<div class="fmsDetail_place_description_image">
 							<a class="colorbox" href="<?=$data['location']['place']['operator_original_image']['SRC']?>">
 								<img alt="" src="<?=$data['location']['place']['operator_image']['SRC']?>">
@@ -428,6 +430,8 @@ public static function show ($params = array()) {
 					<div class="fmsDetail_map fmsDetail_cityMap">
 						<?if($data['fms']['PROPERTY_LATITUDE_VALUE'] == '' && $data['fms']['PROPERTY_LONGITUDE_VALUE'] == ''){?>
 						<div class="fmsDetail_map_name"><?=GetMessage('TOWN_MAP')?></div>
+						<?}else{?>
+							<span><?=$data['fms']['PROPERTY_ADDRESS_VALUE']?></span><br>								
 						<?}?>
 						<div class="fmsDetail_map_content fmsDetail_cityMap_content">
 							<div id="mymap" style="height:319px;width:807px;"></div>
@@ -964,58 +968,68 @@ $('.deleteButton').on('vclick', function () {
 						});
 						var pt = new google.maps.LatLng(lat, lon);
 						map.setCenter(pt);
-						map.setZoom(13);
+						map.setZoom(16);
+						infowindow = new google.maps.InfoWindow({
+							content: json.results[0].formatted_address
+						});
+						marker.addListener('click', function() {
+							infowindow.open(map, marker);
+						});
 						if ($("*").is("#fms_form")){
 							marker.addListener('dragend', function(e) {
 								$("#latitudeValue").val(e.latLng.lat());  // Широта маркера
 								$("#longitudeValue").val(e.latLng.lng());  // Долгота маркера
 							});
 						}
-						marker.addListener('click', toggleBounce);
 					},
-					error: function (json_encode) {
+					error: function (json) {
 						console.log("Ошибка запроса к googleapis");
 					},
 				});
 			}
 		});
 		
-		var lat,lon,drag;
+		var lat,lon,drag,zoom,title;
 		if ($("*").is("#fms_form")){
 			lat=($("#latitudeValue").val()!="")?parseFloat($("#latitudeValue").val()):parseFloat($("#latitudeMallValue").val());
 			lon=($("#longitudeValue").val()!="")?parseFloat($("#longitudeValue").val()):parseFloat($("#longitudeMallValue").val());
 			drag =( $("#longitudeValue").val()!="" && $("#latitudeValue").val()!="" )?true:false;
+			zoom = 16;
 		}else{
 			lat=($("#latitudeValue").val()!="")?parseFloat($("#latitudeValue").val()):parseFloat($("#latitudeMallValue").val());
 			lon=($("#longitudeValue").val()!="")?parseFloat($("#longitudeValue").val()):parseFloat($("#longitudeMallValue").val());
-			drag = false
+			drag = false;
+			zoom = ($("#latitudeValue").val()!="" && $("#longitudeValue").val()!="")?16:14;
+			title = "!";
 		}
 		map = new google.maps.Map(document.getElementById('mymap'), {
-			zoom: 13,
-			center: {lat: lat, lng: lon}
+			zoom: zoom,
+			center: {lat: lat, lng: lon},
+			scaleControl: true
 		});
 		
 		marker = new google.maps.Marker({
 			map: map,
 			draggable: drag,
 			animation: google.maps.Animation.DROP,
-			position: {lat: lat, lng: lon}
+			position: {lat: lat, lng: lon},
+			title: title
 		});
+		
+		var contentString = ($("#ownaddress").val() !="")?$("#ownaddress").val():$("#malladdress").val();
+		var infowindow = new google.maps.InfoWindow({
+			content: contentString
+		});
+		marker.addListener('click', function() {
+			infowindow.open(map, marker);
+		});
+
 		if ($("*").is("#fms_form")){
 			marker.addListener('dragend', function(e) {
 				$("#latitudeValue").val(e.latLng.lat());  // Широта маркера
 				$("#longitudeValue").val(e.latLng.lng());  // Долгота маркера
 			});
 		}
-		marker.addListener('click', toggleBounce);
-		
-		function toggleBounce() {
-		if (marker.getAnimation() !== null) {
-			marker.setAnimation(null);
-		} else {
-			marker.setAnimation(google.maps.Animation.BOUNCE);
-		}
-	}
 	});	
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js"></script>
