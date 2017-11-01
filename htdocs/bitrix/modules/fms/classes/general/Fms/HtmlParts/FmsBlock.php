@@ -552,7 +552,7 @@ public static function show ($params = array()) {
 		<a href="<?=$data['PROPERTY_EXAMPLE_ORIGINAL_IMAGE_VALUE']['SRC']?>" target="_blank" class="fmsBlock_exampleImageLink dynamicColorbox"></a>
 	<?}?>
 </<?=$tagName?>>
-
+<? //echo "<pre>";print_r($data);echo "</pre>";?>
 <?if ($isWithRelatedVideo) {?>
 <div class="fmsVideoblock <?=$p['related_video_modifier_class']?>">
 	<div class="fmsVideoblock_video">

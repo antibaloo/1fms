@@ -1000,7 +1000,6 @@ $('.deleteButton').on('vclick', function () {
 			lon=($("#longitudeValue").val()!="")?parseFloat($("#longitudeValue").val()):parseFloat($("#longitudeMallValue").val());
 			drag = false;
 			zoom = ($("#latitudeValue").val()!="" && $("#longitudeValue").val()!="")?16:14;
-			title = "!";
 		}
 		map = new google.maps.Map(document.getElementById('mymap'), {
 			zoom: zoom,
@@ -1013,7 +1012,6 @@ $('.deleteButton').on('vclick', function () {
 			draggable: drag,
 			animation: google.maps.Animation.DROP,
 			position: {lat: lat, lng: lon},
-			title: title
 		});
 		
 		var contentString = ($("#ownaddress").val() !="")?$("#ownaddress").val():$("#malladdress").val();
