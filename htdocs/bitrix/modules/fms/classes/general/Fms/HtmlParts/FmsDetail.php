@@ -92,16 +92,12 @@ public static function show ($params = array()) {
     //$APPLICATION->AddViewContent("plusoru_meta_images", $plusoImageMeta);
 	//clearstatcache();
 	$pics = \Fms\ShareImages::create()->getImagesSrc($fmsData['ID']);
-	if ($pics['facebook'] == 'http://1fms.com/images/giant_share_sign.png'){
-		$plusoImage = "http://{$_SERVER['HTTP_HOST']}" .$p['fms_block_params']['data']["DETAIL_PICTURE"]["SRC"];
-		$APPLICATION->AddViewContent("plusoru_meta_images", "<meta property=\"og:image\" content=\"{$plusoImage}\" /><link rel=\"image_src\" href=\"{$plusoImage}\" />");
-		$APPLICATION->AddViewContent("plusoru_meta_image_width", '<meta property="og:image:width" content="'.$p['fms_block_params']['data']["DETAIL_PICTURE"]['WIDTH'].'"/>');
-		$APPLICATION->AddViewContent("plusoru_meta_image_height", '<meta property="og:image:height" content="'.$p['fms_block_params']['data']["DETAIL_PICTURE"]['HEIGHT'].'"/>');
-	}else{
-		$APPLICATION->AddViewContent("plusoru_meta_images", "<meta property=\"og:image\" content=\"{$pics['facebook']}\" /><link rel=\"image_src\" href=\"{$plusoImage}\" />");
-		$APPLICATION->AddViewContent("plusoru_meta_image_width", '<meta property="og:image:width" content="802"/>');
-		$APPLICATION->AddViewContent("plusoru_meta_image_height", '<meta property="og:image:height" content="422"/>');
-	}
+	if ($pics['facebook'] == 'http://1fms.com/images/giant_share_sign.png')	$plusoImage = "http://{$_SERVER['HTTP_HOST']}" .$p['fms_block_params']['data']["DETAIL_PICTURE"]["SRC"]."?t=".strtotime("now");
+	else $plusoImage = $pics['facebook']."?t=".strtotime("now");
+	$APPLICATION->AddViewContent("plusoru_meta_images", "<meta property=\"og:image\" content=\"{$plusoImage}\" /><link rel=\"image_src\" href=\"{$plusoImage}\" />");
+	$APPLICATION->AddViewContent("plusoru_meta_image_width", '<meta property="og:image:width" content="'.$p['fms_block_params']['data']["DETAIL_PICTURE"]['WIDTH'].'"/>');
+	$APPLICATION->AddViewContent("plusoru_meta_image_height", '<meta property="og:image:height" content="'.$p['fms_block_params']['data']["DETAIL_PICTURE"]['HEIGHT'].'"/>');
+	
 	//echo "<pre>";print_r($pics);echo "</pre>";
 	
 	
@@ -431,7 +427,8 @@ public static function show ($params = array()) {
 						<?if($data['fms']['PROPERTY_LATITUDE_VALUE'] == '' && $data['fms']['PROPERTY_LONGITUDE_VALUE'] == ''){?>
 						<div class="fmsDetail_map_name"><?=GetMessage('TOWN_MAP')?></div>
 						<?}else{?>
-							<span><?=$data['fms']['PROPERTY_ADDRESS_VALUE']?></span><br>								
+						<div class="fmsDetail_description_title fmsDetail_strong"><?=$data['fms']['PROPERTY_ADDRESS_VALUE']?></div>
+							<!--<span><?=$data['fms']['PROPERTY_ADDRESS_VALUE']?></span><br>-->
 						<?}?>
 						<div class="fmsDetail_map_content fmsDetail_cityMap_content">
 							<div id="mymap" style="height:319px;width:807px;"></div>
