@@ -348,7 +348,7 @@ public static function show ($params = array()) {
 					<?//if($location != 'detail'){*/?>
 					<ul class="fmsBlock_line2_participants">
 						<?
-						$limiter = 5;
+						$limiter = 8;
 						foreach ($data['participants'] as $partData) {?>
 							<li><img src="<?=$partData['images']['small']['SRC']?>" alt="" class="fmsBlock_line2_participants_image"></li>
 							<?

@@ -247,7 +247,7 @@ class FmsesGetter {
 		$participantsLimit = $GLOBALS['CONFIG']['fmses']['participants']['limit_for_events_list'];
 		foreach ($list as &$data) {
 			if ($data['PROPERTY_TYPE_ENUM_ID'] == $eventTypeId) {
-				$data['participants'] = $this->_getParticipantsData($data, 5);
+				$data['participants'] = $this->_getParticipantsData($data, 8);
 			}
 		}
 		unset($data);
@@ -310,7 +310,7 @@ class FmsesGetter {
 				$data['fms']['participants'] = $data['participants'];
 				$participantsLimit = $GLOBALS['CONFIG']['fmses']['participants']['limit_for_events_list'];
 				if (count($data['fms']['participants']) > $participantsLimit) {
-					$data['fms']['participants'] = array_slice($data['fms']['participants'], 0, $participantsLimit);
+					$data['fms']['participants'] = array_slice($data['fms']['participants'], 0, 8/*$participantsLimit*/);
 				}
 			}
 			$data['subscription'] = $this->_getSubscriptionData($data['fms']['~PROPERTY_OPERATOR_VALUE']);
