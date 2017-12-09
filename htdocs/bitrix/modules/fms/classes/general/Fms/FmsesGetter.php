@@ -410,7 +410,7 @@ class FmsesGetter {
 		);
 		$imagesCache = unserialize($data['fms']['~PROPERTY_IMAGES_CACHE_VALUE']);
 		$data['fms']['DETAIL_PICTURE'] = $imagesCache['DETAIL_PICTURE'];
-		$data['fms']['time_left']      = $this->_getTimeLeftString($data['fms']['PROPERTY_START_DATETIME_VALUE']);
+		$data['fms']['time_left']      = $this->_getTimeLeftString($data['fms']['PROPERTY_START_UTC_DATETIME_VALUE']);
 
 		$data['location'] = $this->_getLocationData($data['fms']['PROPERTY_OPERATOR_VALUE']);
 
