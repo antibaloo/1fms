@@ -462,6 +462,7 @@ public static function show ($params = array()) {
 							<?
 							if ($location != 'fms_form') {
 								/*Учет часового пояса из данных оператора*/
+								/*
 								if ($data['time_left']){
 									$timeArray=explode(":",$data['time_left']);
 									$offset = $data['PROPERTY_OPERATOR_VALUE']['UTC_OFFSET'];
@@ -479,6 +480,7 @@ public static function show ($params = array()) {
 									$data['time_left'] = implode(":",$timeArray);
 								}
 								/*----------------------------------------*/
+								
 								$timeLeft = ($data['time_left'] ? $data['time_left'] : '00:00:00');
 							} else {
 								$timeLeft = '00:00:00';
