@@ -77,12 +77,5 @@ while($ob = $res->GetNextElement()) {
 		$arResult['VIDEOS'][] = $arFields;
 	}
 } 
-
-
-
-
-
-
-//echo '<pre>'; print_r($arResult); echo '</pre>';
 $this->IncludeComponentTemplate();
 ?>

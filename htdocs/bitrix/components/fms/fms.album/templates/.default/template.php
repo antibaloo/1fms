@@ -1,6 +1,8 @@
 <?
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+IncludeTemplateLangFile(__FILE__);
 ?>
+<span style="font-weight:bold;font-size:18px;font-family: Arial;"><?= GetMessage("PHOTO_REPORT")?></span><br><br>
 <div class="pgPhotos_tabContent pgOverall_overallTabContent pgPhotos_activeTabContent">
 	<div class="photo_container">
 <?foreach (array_merge($arResult['PHOTOS'], $arResult['VIDEOS']) as $item):?>
