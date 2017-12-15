@@ -1,2 +1,2 @@
 <?
-$MESS['PHOTO_REPORT'] = "Photo report:";
+$MESS['PHOTO_REPORT'] = "Photo report";
