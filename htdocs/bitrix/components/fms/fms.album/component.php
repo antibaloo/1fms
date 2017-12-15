@@ -77,5 +77,5 @@ while($ob = $res->GetNextElement()) {
 		$arResult['VIDEOS'][] = $arFields;
 	}
 } 
-$this->IncludeComponentTemplate();
+if (count($arResult['PHOTOS'])+count($arResult['VIDEOS']))$this->IncludeComponentTemplate();
 ?>
