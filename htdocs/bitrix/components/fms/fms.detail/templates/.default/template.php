@@ -17,10 +17,14 @@ if (isset($arResult['error'])) {
 		'data' => $arResult['fms']
 	),
 ));
+?>
+<br>
+<?
 $APPLICATION->IncludeComponent(
 		'fms:fms.album',
 		'',
 		array(
+			"FMS_ID" => $arResult['fms']['ID']
 		),
 		false
 	);
