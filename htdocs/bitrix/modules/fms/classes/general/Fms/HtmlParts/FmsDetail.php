@@ -286,7 +286,7 @@ public static function show ($params = array()) {
 							<?}?>
 						</div>
 					</div>
-					
+					<?$APPLICATION->IncludeComponent('fms:fms.prize','',array("MALL_ID" => $fmsData['PROPERTY_OPERATOR_VALUE']['UF_OP_MALL']['ID']),false);?>
 				</div>
 				<div class="fmsDetail_participation">
 					<div class="fmsDetail_participation_brief">
