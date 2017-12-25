@@ -1,0 +1,16 @@
+.fmsDetail_prizeOfMonth {float:right; width:250px;text-align: left;}
+
+.clearFloat{clear: both;margin-bottom: 15px;}
+.prizeImageWrapper{margin-top:20px;position: relative;}
+.prizeImage{width: 250px;height:304px;overflow:hidden;}
+.prizeImage img {position: relative;left: 50%;transform: translateX(-50%);}
+.flashMobKing{display: block; position: absolute;right: 0px; top: -10px; opacity: 0.8;}
+.prizeLeader{margin-top: 15px; text-align:left;}
+.leaderPhoto{float: left;margin-top:5px;}
+.leaderName{float:left;margin-top:5px;margin-left:5px;}
+.logoText{position: absolute;width:100%; height:106px; bottom: 0px; background: white;opacity:0.9}
+.mallLogo{width: 74px;height:74px;position: absolute; left: 15px; bottom: 15px;}
+.mallLogo img{width: 74px; height: 74px;}
+.prizeText{position: absolute;right:15px; bottom: 15px;width: 130px;height: 74px;text-align: left; display: table;}
+.prizeSubText{display: table-cell; vertical-align: middle;font-weight:bold;font-size:14px;font-family: Arial;}
+.prizeMessage{text-align: left;}
