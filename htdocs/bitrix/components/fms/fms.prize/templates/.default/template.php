@@ -18,6 +18,7 @@ $uri_parts = explode('?', $_SERVER['REQUEST_URI'], 2);
 			<img class="flashMobKing" src="/images/flashmobking.png" width="86px" height="86px">
 		</div>
 		<div class="prizeMessage"><?= GetMessage("PRIZE_MESSAGE")?></div>
+		<?if ($arResult['leader']['show']){?>
 		<div class="prizeLeader">
 			<span style="font-weight:bold;font-size:14px;font-family: Arial;"><?= GetMessage("PRIZE_LEADER")?></span>
 			<div>
@@ -29,6 +30,7 @@ $uri_parts = explode('?', $_SERVER['REQUEST_URI'], 2);
 				<div class="clearFloat"></div>
 			</div>
 		</div>
+		<?}?>
 		<?//echo "<pre>";print_r($arResult);echo "</pre>";?>
 	</div>
 </a>
