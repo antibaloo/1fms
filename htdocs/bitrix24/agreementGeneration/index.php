@@ -1,4 +1,5 @@
 <?php
+if (!substr_count($_REQUEST['DOMAIN'],'.bitrix24.ru')) die("ПНХ!");
 require ($_SERVER['DOCUMENT_ROOT'] . "/bitrix/modules/main/include/prolog_before.php");
 require($_SERVER['DOCUMENT_ROOT'].'/include/fpdf/fpdf.php');
 //Функция перевода десятичного числа в 26ричный символьный код
