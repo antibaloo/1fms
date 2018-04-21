@@ -1,6 +1,7 @@
 <?php
 if (!substr_count($_REQUEST['DOMAIN'],'.bitrix24.ru')) die("ПНХ!");
 require ($_SERVER['DOCUMENT_ROOT'] . "/bitrix/modules/main/include/prolog_before.php");
+//define('FPDF_FONTPATH',$_SERVER['DOCUMENT_ROOT'].'/include/fpdf/font/'); 
 require($_SERVER['DOCUMENT_ROOT'].'/include/fpdf/fpdf.php');
 //Функция перевода десятичного числа в 26ричный символьный код
 function to26LetterCode($id){
@@ -43,10 +44,7 @@ $rsData = $AgreementRangesClass::getList(
   )
 );
 $globalCount = 0;
-while($arAgreement = $rsData->Fetch()){$globalCount=+$arAgreement['UF_COUNT'];}
-
-
-
+while($arAgreement = $rsData->Fetch()){  $globalCount+=$arAgreement['UF_COUNT'];}
 ?>
 <!doctype html>
 <html lang="ru">
@@ -102,14 +100,16 @@ while($arAgreement = $rsData->Fetch()){$globalCount=+$arAgreement['UF_COUNT'];}
         $activeRange = $AgreementRangesClass::getRowById($_REQUEST['activeRange']);
         for($id = $activeRange['UF_FIRST']; $id <= $activeRange['UF_LAST'];$id ++){
           $queryUrl = 'https://ibalakov.bitrix24.ru/rest/1/ex50021nagym0e11/crm.lead.add.json/';
+          //$queryUrl = 'https://zdz-online.bitrix24.ru/rest/16/opxrg0lm0un683us/crm.lead.add.json/';
           $queryData = http_build_query(
             array( 
               'fields' => array( 
                 "TITLE" => "Согласие на профилактический осмотр",
                 "NAME" => to26LetterCode($id),
-                "STATUS_ID" => "NEW", 
+                //"UF_CRM_1522138105" => to26LetterCode($id),
+                "STATUS_ID" => "NEW",
                 "OPENED" => "Y", 
-                "ASSIGNED_BY_ID" => 1, 
+                "ASSIGNED_BY_ID" => 1, //16 или $result['result']['ID']
               ), 
               'params' => array("REGISTER_SONET_EVENT" => "Y") )
           );
@@ -130,6 +130,22 @@ while($arAgreement = $rsData->Fetch()){$globalCount=+$arAgreement['UF_COUNT'];}
         $AgreementRangesClass::update($_REQUEST['activeRange'],array('UF_LEADS_CREATED' => 1));
         break;
       case "printDoc":
+        $pdf=new FPDF();
+        $activeRange = $AgreementRangesClass::getRowById($_REQUEST['activeRange']);
+        $pdf->SetAuthor('zdz-online.ru');
+        $pdf->SetTitle('Range of agreements from '.$activeRange['UF_FIRST'].' to '.$activeRange['UF_LAST']);
+        $pdf->SetFont('Times','B',12);
+        for($id = $activeRange['UF_FIRST']; $id <= $activeRange['UF_LAST'];$id ++){
+          $pdf->AddPage('P');
+          $pdf->SetFontSize(12);
+          $pdf->Image('http://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=zdz-online.ru?agreementId='.to26LetterCode($id),174,13,25,25,'PNG');
+          $pdf->Text(177,14,to26LetterCode($id));
+          $pdf->SetFontSize(14);
+          $pdf->Image('http://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=zdz-online.ru?agreementId='.to26LetterCode($id),17,259,27,27,'PNG');
+          $pdf->Text(20,260,to26LetterCode($id));
+        }
+        $pdf->Output('Диапазон_'.$activeRange['UF_FIRST'].'_'.$activeRange['UF_LAST'].'.pdf','F');
+        $AgreementRangesClass::update($_REQUEST['activeRange'],array('UF_PDF_FILE' => 'Диапазон_'.$activeRange['UF_FIRST'].'_'.$activeRange['UF_LAST'].'.pdf'));
         break;
     }
     
@@ -181,15 +197,21 @@ while($arAgreement = $rsData->Fetch()){$globalCount=+$arAgreement['UF_COUNT'];}
       "order" => array("ID"=>"DESC"), // сортировка по полю ID, будет работать только, если вы завели такое поле в hl'блоке
     )
   );
-  while($arAgreement = $rsData->Fetch()){
+  while($arAgreementRange = $rsData->Fetch()){
 ?>
                 <tr>
-                  <th scope="row"><?=$arAgreement['ID']?></th>
-                  <td><?=$arAgreement['UF_DESCRIPTION']?></td>
-                  <td><?=$arAgreement['UF_GENERATION_DATE']?></td>
-                  <td title="с <?=to26LetterCode($arAgreement['UF_FIRST'])?> по <?=to26LetterCode($arAgreement['UF_LAST'])?>"><?=$arAgreement['UF_COUNT']?></td>
-                  <td><button range-id="<?=$arAgreement['ID']?>" type="button" class="btn btn-warning leadCreate" <?=($arAgreement['UF_LEADS_CREATED'])?"disabled":""?>><?=($arAgreement['UF_LEADS_CREATED'])?"Лиды созданы":"Создать лиды"?></button></td>
-                  <td><button range-id="<?=$arAgreement['ID']?>" type="button" class="btn btn-info printDoc" >Печать</button></td>
+                  <th scope="row"><?=$arAgreementRange['ID']?></th>
+                  <td><?=$arAgreementRange['UF_DESCRIPTION']?></td>
+                  <td><?=$arAgreementRange['UF_GENERATION_DATE']?></td>
+                  <td title="с <?=to26LetterCode($arAgreementRange['UF_FIRST'])?> по <?=to26LetterCode($arAgreementRange['UF_LAST'])?>"><?=$arAgreementRange['UF_COUNT']?></td>
+                  <td><button range-id="<?=$arAgreementRange['ID']?>" type="button" class="btn btn-warning leadCreate" <?=($arAgreementRange['UF_LEADS_CREATED'])?"disabled":""?>><?=($arAgreementRange['UF_LEADS_CREATED'])?"Лиды созданы":"Создать лиды"?></button></td>
+<?
+    if (strlen($arAgreementRange['UF_PDF_FILE'])){
+      echo '<td><a href="'.$arAgreementRange['UF_PDF_FILE'].'" target="_blank">Скачать бланк</a></td>';
+    }else{
+      echo '<td><button range-id="'.$arAgreementRange['ID'].'" type="button" class="btn btn-info printDoc">Печать</button></td>';
+    }
+?>                  
                 </tr>
 <?
   }
