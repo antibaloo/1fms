@@ -1,0 +1,70 @@
+#agreementId{
+  text-transform:uppercase
+}
+.myBackGround{
+  background:url("../img/back.jpg") no-repeat;
+  background-size: cover;
+  padding-top:15px;
+  padding-bottom:15px;
+  /*height: 100vh;*/
+  }
+.myContainer, .myRow {
+  /*height: 100%;
+  min-height: 100%;*/
+}
+.formBorder{
+  border: 1px solid #e0eded;
+  padding:20px;
+}
+.formHeader{
+  font: bold 22px "PT Sans",sans-serif;
+}
+.formDescription{
+  font: 12px "PT Sans",sans-serif;
+}
+.red{
+  color: red;
+}
+.inputLabel{
+  font: 14px "PT Sans",sans-serif;
+}
+
+.inputUppercase{
+  text-transform:uppercase;
+}
+.bCenter{
+  margin: 0 auto;
+  text-align: center;
+  vertical-align:middle;
+  padding-left: 0px!important;
+  padding-right: 0px!important;
+}
+#agreementCheckForm{
+  color: black;
+  margin: 0 auto;
+  padding: 10px;
+  background:white;
+  width: 100%;
+}
+#resultCheck{
+/*  height: 70px;*/
+}
+.socialBlock{
+  color: white;
+}
+#registrationButton{
+  display: none;
+}
+#emailBlock{
+  display:none;
+}
+
+#noSocial{
+/*  color: darkviolet;*/
+}
+#noSocial:hover{
+  cursor: pointer;
+}
+.mySocial{
+  margin-right: 5px;
+}
